@@ -93,6 +93,7 @@ int main()
     C.TinhTien(1, -1); // Di chuyển điểm C 1 đơn vị sang phải và 1 đơn vị xuống dưới
     C.Xuat(); // Xuất thông tin điểm C (6, 2)
     cout << C.GetHoanhDo(); // In ra hoanh do diem C
+    cout << C.GetTungDo(); // In ra tung do diem C
     cout << endl;
     return 0;
 }
