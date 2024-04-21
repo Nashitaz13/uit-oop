@@ -39,9 +39,8 @@ public:
     int TinhNgay() const;
     NgayThangNam operator+(int ngay) const;
     NgayThangNam operator-(int ngay) const;
-    NgayThangNam& operator++();
-    NgayThangNam& operator--();
-    // NgayThangNam operator--(int);
+    NgayThangNam operator++();
+    NgayThangNam operator--();
     friend std::istream& operator>>(std::istream& is, NgayThangNam& date);
     friend std::ostream& operator<<(std::ostream& os, const NgayThangNam& date);
     int operator-(NgayThangNam &a);
@@ -54,9 +53,9 @@ public:
 };
 
 NgayThangNam::NgayThangNam() {
-    iNgay = 1;
-    iThang = 1;
-    iNam = 2000;
+    iNgay = 0;
+    iThang = 0;
+    iNam = 0;
 }
 
 NgayThangNam::NgayThangNam(int Nam, int Thang, int Ngay) {
@@ -146,22 +145,17 @@ NgayThangNam NgayThangNam::operator-(int ngay) const {
     }
     return temp;
 }
+
 //Theo tien to
-NgayThangNam& NgayThangNam::operator++() {
+NgayThangNam NgayThangNam::operator++() {
     *this = *this + 1;
     return *this;
 }
 
-NgayThangNam& NgayThangNam::operator--() {
+NgayThangNam NgayThangNam::operator--() {
     *this = *this - 1;
     return *this;
 }
-//Hau to
-// NgayThangNam NgayThangNam::operator--(int) {
-//     NgayThangNam temp = *this;
-//     --(*this);
-//     return temp;
-// }
 
 std::istream& operator>>(std::istream& is, NgayThangNam& date) {
     do {
@@ -180,7 +174,8 @@ std::istream& operator>>(std::istream& is, NgayThangNam& date) {
 
 
 std::ostream& operator<<(std::ostream& os, const NgayThangNam& date) {
-    os << std::setw(2) << std::setfill('0') << date.iNgay << "/" << std::setw(2) << std::setfill('0') << date.iThang << "/" << date.iNam;
+    os << std::setw(2) << std::setfill('0') << date.iNgay << "/";
+    os << std::setw(2) << std::setfill('0') << date.iThang << "/" << date.iNam;
     return os;
 }
 
@@ -298,8 +293,9 @@ int main() {
     std::cout << dt1 << " < " <<  dt2 << " ? "  << (dt1 < dt2 ? "Yes" : "No") << std::endl;
     std::cout << "Tang (3) len 1 ngay: " << ++dt1 << std::endl;
     std::cout << "Giam (4) di 1 ngay: " << --dt2 << std::endl;
-    std::cout << dt1 + 1000 << std::endl;
-    std::cout << dt2 - 1000 << std::endl;
+    std::cout << "Giam (3) di 1 ngay: " << --dt1 << std::endl;
+    std::cout << "Tang (4) len 1 ngay: " << ++dt2 << std::endl;
+    std::cout << "Tang (3) len 1000 ngay: " << dt1 + 1000 << std::endl;
+    std::cout << "Giam (4) di 1000 ngay: " << dt2 - 1000 << std::endl;
     return 0;
-
 }

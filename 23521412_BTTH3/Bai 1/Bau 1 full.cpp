@@ -2,24 +2,13 @@
 #include <math.h>
 using namespace std;
 
-int gcd(int a, int b) {
-    while (b != 0) {
-        int temp = a % b;
-        a = b;
-        b = temp;
-    }
-    return a;
-}
-
 class PhanSo {
 private:
     int iTu;
     int iMau;
 public:
-    // Constructor
     PhanSo() : iTu(0), iMau(1) {}
     PhanSo(int Tu, int Mau) : iTu(Tu), iMau(Mau) {}
-    // Operator Overloading
     friend PhanSo operator + (PhanSo a, PhanSo b);
     friend PhanSo operator - (PhanSo a, PhanSo b);
     friend PhanSo operator * (PhanSo a, PhanSo b);
@@ -33,6 +22,15 @@ public:
     friend ostream& operator << (ostream& os, PhanSo a);
     friend istream& operator >> (istream& is, PhanSo& a);
 };
+
+int gcd(int a, int b) {
+    while (b != 0) {
+        int temp = a % b;
+        a = b;
+        b = temp;
+    }
+    return a;
+}
 
 PhanSo operator + (PhanSo a, PhanSo b) {
     PhanSo result;
@@ -113,53 +111,76 @@ istream& operator >> (istream& is, PhanSo& a) {
 }
 
 int main() {
-    PhanSo a, b, c;
+    PhanSo ps1, ps2;
+    PhanSo ps3;
+    PhanSo ps4(-2, 4);
+    PhanSo ps5(9, 0);
 
-    cout << "Nhap phan so a:\n";
-    cin >> a;
-    cout << "Nhap phan so b:\n";
-    cin >> b;
-    c = a + b;
-    cout << a << " + " << b << " = " << c << endl;
-    c = a - b;
-    cout << a << " - " << b << " = " << c << endl;
-    c = a * b;
-    cout << a << " * " << b << " = " << c << endl;
-    c = a / b;
-    cout << a << " / " << b << " = " << c << endl;
-    if (a == b)
-        cout << a << " bang " << b << "\n";
-    else
-        cout << a << " khong bang " << b << "\n";
-    if (a != b)
-        cout << a << " khac " << b << "\n";
-    else
-        cout << a << " giong " << b << "\n";
-    if (a >= b)
-        cout << a << " lon hon hoac bang " << b << "\n";
-    else
-        cout << a << " nho hon " << b << "\n";
-    if (a <= b)
-        cout << a << " nho hon hoac bang " << b << "\n";
-    else
-        cout << a << " lon hon " << b << "\n";
-    if (a > b)
-        cout << a << " lon hon " << b << "\n";
-    else
-        cout << a << " khong lon hon " << b << "\n";
-    if (a < b)
-        cout << a << " nho hon " << b << "\n";
-    else
-        cout << a << " khong nho hon " << b << "\n";
-    cout << endl;
-    PhanSo d();
-    PhanSo e(1, 2);
-    PhanSo g(3, 2);
-    cout << d << endl;
-    cout << e << endl;
-    PhanSo f;
-    f = g + e;
-    cout << f << endl;
+    cout << "Nhap phan so thu nhat: ";
+    cin >> ps1;
+    cout << "Nhap phan so thu hai: ";
+    cin >> ps2;
+
+    cout << "Phan so thu nhat: " << ps1 << endl;
+    cout << "Phan so thu hai: " << ps2 << endl;
+    cout << "Phan so thu ba: " << ps3 << endl;
+    cout << "Phan so thu bon: " << ps4 << endl;
+    cout << "Phan so thu nam: " << ps5 << endl;
+
+    ps3 = ps1 + ps2;
+    cout << "Tong hai phan so 1 va 2: " << ps3 << endl;
+
+    ps3 = ps1 - ps2;
+    cout << "Hieu hai phan so 1 va 2: " << ps3 << endl;
+
+    ps3 = ps1 * ps2;
+    cout << "Tich hai phan so 1 va 2: " << ps3 << endl;
+
+    ps3 = ps1 / ps2;
+    cout << "Thuong hai phan so 1 va 2: " << ps3 << endl;
+
+    if (ps1 == ps4) {
+        cout << "Hai phan so 1 va 4 bang nhau." << endl;
+    }
+    else {
+        cout << "Hai phan so 1 va 4 khong bang nhau." << endl;
+    }
+
+    if (ps1 != ps2) {
+        cout << "Hai phan so 1 va 2 khac nhau." << endl;
+    }
+    else {
+        cout << "Hai phan so giong nhau." << endl;
+    }
+
+    if (ps1 > ps2) {
+        cout << "Phan so 1 lon hon phan so 2." << endl;
+    }
+    else {
+        cout << "Phan so 1 khong lon hon phan so 2." << endl;
+    }
+
+    if (ps1 < ps2) {
+        cout << "Phan so 1 nho hon phan so 2." << endl;
+    }
+    else {
+        cout << "Phan so 1 khong nho hon phan so 2." << endl;
+    }
+
+    if (ps1 >= ps2) {
+        cout << "Phan so 1 lon hon hoac bang phan so 2." << endl;
+    }
+    else {
+        cout << "Phan so 1 khong lon hon hoac bang phan so 2." << endl;
+    }
+
+    if (ps1 <= ps2) {
+        cout << "Phan so 1 nho hon hoac bang phan so 2." << endl;
+    }
+    else {
+        cout << "Phan so 1 khong nho hon hoac bang phan so 2." << endl;
+    }
+
     return 0;
 }
 

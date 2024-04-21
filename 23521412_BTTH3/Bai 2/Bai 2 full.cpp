@@ -3,10 +3,10 @@ using namespace std;
 
 class SoPhuc {
 private:
-	float thuc, ao;
+	double dThuc, dAo;
 public:
-	SoPhuc() : thuc(0), ao(0) {}
-	SoPhuc(float thuc, float ao) : thuc(thuc), ao(ao) {}
+	SoPhuc() : dThuc(0), dAo(0) {}
+	SoPhuc(double dThuc, double dAo) : dThuc(dThuc), dAo(dAo) {}
 	friend SoPhuc operator + (SoPhuc a, SoPhuc b);
 	friend SoPhuc operator - (SoPhuc a, SoPhuc b);
 	friend SoPhuc operator * (SoPhuc a, SoPhuc b);
@@ -18,28 +18,36 @@ public:
 };
 
 SoPhuc operator + (SoPhuc a, SoPhuc b) {
-	return SoPhuc(a.thuc + b.thuc, a.ao + b.ao);
+	double thuc = a.dThuc + b.dThuc;
+	double ao = a.dAo + b.dAo;
+	return SoPhuc(thuc, ao);
 }
 
 SoPhuc operator - (SoPhuc a, SoPhuc b) {
-	return SoPhuc(a.thuc - b.thuc, a.ao - b.ao);
+	double thuc = a.dThuc - b.dThuc;
+	double ao = a.dAo - b.dAo;
+	return SoPhuc(thuc, ao);
 }
 
 SoPhuc operator * (SoPhuc a, SoPhuc b) {
-	return SoPhuc(a.thuc * b.thuc - a.ao * b.ao, a.thuc * b.ao + a.ao * b.thuc);
+	double thuc = a.dThuc * b.dThuc - a.dAo * b.dAo;
+	double ao = a.dThuc * b.dAo + a.dAo * b.dThuc;
+	return SoPhuc(thuc, ao);
 }
 
 SoPhuc operator / (SoPhuc a, SoPhuc b) {
-	float mau = b.thuc * b.thuc + b.ao * b.ao;
+	double mau = b.dThuc * b.dThuc + b.dAo * b.dAo;
 	if (mau == 0) {
-		cout << "Không thể chia cho số phức có giá trị bằng 0." << endl;
+		cout << "Khong the chia cho so phuc co gia tri bang 0." << endl;
 		return a;
 	}
-	return SoPhuc((a.thuc * b.thuc + a.ao * b.ao) / mau, (a.ao * b.thuc - a.thuc * b.ao) / mau);
+	double thuc = (a.dThuc * b.dThuc + a.dAo * b.dAo) / mau;
+	double ao = (a.dAo * b.dThuc - a.dThuc * b.dAo) / mau;
+	return SoPhuc(thuc, ao);
 }
 
 bool operator == (SoPhuc a, SoPhuc b) {
-	return a.thuc == b.thuc && a.ao == b.ao;
+	return a.dThuc == b.dThuc && a.dAo == b.dAo;
 }
 
 bool operator != (SoPhuc a, SoPhuc b) {
@@ -48,35 +56,35 @@ bool operator != (SoPhuc a, SoPhuc b) {
 
 istream& operator >> (istream &is, SoPhuc &p) {
 	cout << "Nhap phan thuc: ";
-	is >> p.thuc;
+	is >> p.dThuc;
 	cout << "Nhap phan ao: ";
-	is >> p.ao;
+	is >> p.dAo;
 	return is;
 }
 
 ostream& operator << (ostream &os, SoPhuc p)
 {
-	if (p.thuc == 0)
+	if (p.dThuc == 0)
 	{
-		if (p.ao == 1)
+		if (p.dAo == 1)
 			os << "(i)";
-		if(p.ao == -1)
+		if(p.dAo == -1)
 			os << "(-i)";
-		if(p.ao != 1 && p.ao != -1)
-			os << "(" << p.ao << "i)";
+		if(p.dAo != 1 && p.dAo != -1)
+			os << "(" << p.dAo << "i)";
 	}
-	if(p.thuc != 0.0)
+	if(p.dThuc != 0.0)
 	{
-		if((p.ao > 0 && p.ao < 1) || p.ao > 1)
-			os << "(" << p.thuc << "+" << p.ao <<"i)";
-		if(p.ao == 1)
-			os << "(" << p.thuc << "+" <<"i)";
-		if(p.ao == 0)
-			os<<p.thuc;
-		if(p.ao == -1)
-			os << "(" << p.thuc << "-i)";
-		if((p.ao >-1.0 && p.ao < 0) || p.ao < -1)
-			os << "(" << p.thuc << p.ao << "i)";
+		if((p.dAo > 0 && p.dAo < 1) || p.dAo > 1)
+			os << "(" << p.dThuc << "+" << p.dAo <<"i)";
+		if(p.dAo == 1)
+			os << "(" << p.dThuc << "+" <<"i)";
+		if(p.dAo == 0)
+			os<<p.dThuc;
+		if(p.dAo == -1)
+			os << "(" << p.dThuc << "-i)";
+		if((p.dAo >-1.0 && p.dAo < 0) || p.dAo < -1)
+			os << "(" << p.dThuc << p.dAo << "i)";
 	}
 	return os;
 }
@@ -87,14 +95,12 @@ int main() {
 	cin >> a;
 	cout << "Nhap so phuc b:" << endl;
 	cin >> b;
-
-    cout << a << " + " << b << " = " << a + b << endl;
+	cout << "So phuc c: " << c << endl;
+	cout << a << " + " << b << " = " << a + b << endl;
 	cout << a << " - " << b << " = " << a-b << endl;
 	cout<< a << " * " << b << " = " << a * b << endl;
 	cout << a << " / " << b << " = " << a / b <<endl;
-
 	cout << "a == b: " << (a == b ? "Dung" : "Sai") << endl;
 	cout << "a != b: " << (a != b ? "Dung" : "Sai") << endl;
-
 	return 0;
 }

@@ -1,32 +1,8 @@
+#pragma once
+#include "ThoiGian.h"
 #include <iostream>
 #include <iomanip>
 #include <math.h>
-using namespace std;
-
-class ThoiGian
-{
-private:
-    int iGio, iPhut, iGiay;
-public:
-    ThoiGian() : iGio(0), iPhut(0), iGiay(0) {}  
-    ThoiGian(int Gio, int Phut, int Giay) : iGio(Gio), iPhut(Phut), iGiay(Giay) {} 
-    int TinhGiay(); 
-    void TinhLaiGio(int Giay); 
-    friend istream& operator >> (istream& is, ThoiGian& T);
-    friend ostream& operator << (ostream& os, ThoiGian& T);
-    ThoiGian operator++ (); 
-    ThoiGian operator-- (); 
-    ThoiGian operator+(int Giay); 
-    ThoiGian operator-(int Giay); 
-    ThoiGian operator+(ThoiGian& Ts); 
-    ThoiGian operator-(ThoiGian& Ts); 
-    friend bool operator<(const ThoiGian& T1,const ThoiGian& T2);
-    friend bool operator>=(const ThoiGian& T1,const ThoiGian& T2);
-    friend bool operator<=(const ThoiGian& T1,const ThoiGian& T2);
-    friend bool operator!=(const ThoiGian& T1,const ThoiGian& T2);
-    friend bool operator==(const ThoiGian& T1,const ThoiGian& T2);
-    friend bool operator>(const ThoiGian& T1, const ThoiGian& T2);
-};
 
 int ThoiGian::TinhGiay() 
 {
@@ -36,9 +12,9 @@ int ThoiGian::TinhGiay()
 void ThoiGian::TinhLaiGio(int Giay) 
 {
     iGio = Giay / 3600;
-    Giay %= 3600;
-    iPhut = Giay / 60;
-    iGiay = Giay % 60;
+    int GiayConLai = Giay % 3600;
+    iPhut = GiayConLai / 60;
+    iGiay = GiayConLai % 60;
 }
 
 istream& operator >> (istream& is, ThoiGian& T) 
@@ -157,8 +133,7 @@ ThoiGian ThoiGian::operator+(ThoiGian& Ts)
     }
     if (T.iGio >= 24)
     {
-        cout << T.iGio / 24 << " ngay " << T.iGio % 24 << " gio " << T.iPhut << " phut " << T.iGiay << " giay" << endl;
-        T.iGio %= 24;
+       T.iGio = T.iGio % 24;
     }
     return T;
 }
@@ -226,41 +201,4 @@ bool operator<=(const ThoiGian& T1,const ThoiGian& T2)
 bool operator>=(const ThoiGian& T1,const ThoiGian& T2)
 {
     return (T1 > T2) || (T1 == T2);
-}
-int main()
-{
-    ThoiGian T1, T2;
-    cout << "Nhap thoi gian T1: " << endl;
-    cin >> T1;
-    cout << "Nhap thoi gian T2: " << endl;
-    cin >> T2;
-
-    cout << "T1: " << T1;
-    cout << "T2: " << T2;
-
-    cout << "T1 + T2: ";
-    ThoiGian T3 = T1 + T2;
-
-    ThoiGian T4 = T1 - T2;
-    cout << "|T1 - T2|: " << T4;
-
-    ThoiGian T5 = T1 + 900;
-    cout << "T1 + 900 giay: " << T5;
-
-    ThoiGian T6 = T2 - 50;
-    cout << "T2 - 50 giay: " << T6;
-
-    ++T1;
-    cout << "T1 sau khi tang 1 giay: " << T1;
-
-    --T2;
-    cout << "T2 sau khi giam 1 giay: " << T2;
-
-    if (T1 > T2)
-        cout << "T1 lon hon T2." << endl;
-    else if (T1 < T2)
-        cout << "T1 nho hon T2." << endl;
-    else
-        cout << "T1 bang T2." << endl;
-    return 0;
 }
