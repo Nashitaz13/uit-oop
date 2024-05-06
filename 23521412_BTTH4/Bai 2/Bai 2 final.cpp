@@ -2,10 +2,6 @@
 #include <cstdlib>
 #include <ctime>
 
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-
 class GiaSuc {
 protected:
     int soLuong;
